@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="cardvalidate.js"></script>
+    <style>
+        input{
+            margin:5px;
+        }
+        body{
+            background-image: linear-gradient(to right, #355C7D, #6C5B7B, #C06C84);
+        }
+    </style>
+</head>
+
+<body>
+<?php 
+require("db.php");
+session_start();
+$items= $_POST["items"];
+
+$query= "DELETE FROM user_orders";
+mysqli_query($con, $query);
+?>
+<h1>Confirm Purchase</h1>
+<p>Total: <?php echo $items;?>
+<form onsubmit="return validate(this);">
+    <div>
+        <label>Name on Card: </label> <input type="text" name="cardname" id="cardname"> 
+        <br>
+    </div>
+    <div>
+        <label>Card Number: </label> <input type="text" name="cardnumber" oninput="validate()">
+        <p id="cardtype"></p>
+        <br>
+    </div>
+    <div>
+        <label>CVV: </label> <input type="password" name="cardname"> 
+        <br>
+    </div>
+        
+    <div>
+        <label>Expiration date: </label>
+        <select>
+            <option value="01">January</option>
+            <option value="02">February </option>
+            <option value="03">March</option>
+            <option value="04">April</option>
+            <option value="05">May</option>
+            <option value="06">June</option>
+            <option value="07">July</option>
+            <option value="08">August</option>
+            <option value="09">September</option>
+            <option value="10">October</option>
+            <option value="11">November</option>
+            <option value="12">December</option>
+        </select>
+
+        <select>
+            <option value="20"> 2020</option>
+            <option value="21"> 2021</option>
+            <option value="22"> 2022</option>
+            <option value="23"> 2023</option>
+            <option value="24"> 2024</option>
+            <option value="25"> 2025</option>
+        </select>
+
+        <br><br>
+        <p>Mailing Address</p>
+        <label>Street</label><input type="text" name="mstreet"><br>
+        <label>City</label><input type="text" name="mcity">
+        <label>State</label><input type="text" name="mstate"><br>
+        <label>Zipcode</label><input type="text" name="mzipcode">
+
+        <p>Billing Address</p>
+        <label>Street</label><input type="text" name="bstreet"><br>
+        <label>City</label><input type="text" name="bcity">
+        <label>State</label><input type="text" name="bstate"><br>
+        <label>Zipcode</label><input type="text" name="bzipcode">
+
+        <label>Phone Number</label><input type="tel" name="phone">
+    </div>
+    <input type="submit" onclick="validate()" value="Submit">
+
+</form>
+</body>
+<html>
